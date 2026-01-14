@@ -1,0 +1,9 @@
+---
+- name: Dat151 lab config
+  # become: true
+  hosts:
+    - lab
+  roles:
+    - common
+    - mariadb
+

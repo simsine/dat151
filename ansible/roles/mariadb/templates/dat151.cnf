@@ -1,0 +1,5 @@
+[mysqld]
+log-bin=mysql-bin
+log-bin-trust-function-creators
+character-set-server=utf8mb4
+collation-server=utf8mb4_danish_ci

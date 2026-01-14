@@ -1,0 +1,5 @@
+.venv
+.vscode
+.ansible
+
+.sudo_password

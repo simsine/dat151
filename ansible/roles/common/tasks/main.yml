@@ -1,0 +1,24 @@
+- name: Write motd
+  ansible.builtin.template:
+    src: templates/motd.j2
+    dest: /etc/motd
+    mode: "0644"
+  become: true
+
+- name: Write ssh hardening config
+  ansible.builtin.template:
+    src: templates/99_ssh_hardening.conf
+    dest: /etc/ssh/sshd_config.d
+    validate: /usr/sbin/sshd -t -f %s
+    mode: "0644"
+  notify: Restart sshd
+  become: true
+
+- name: Install common packages
+  ansible.builtin.dnf:
+    pkg:
+      - htop
+      - ncdu
+      - nmap
+      - emacs
+  become: true
