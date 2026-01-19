@@ -16,3 +16,9 @@
     enabled: true
     state: started
   become: true
+- name: Open firewall for mariadb
+  ansible.posix.firewalld:
+    service: mysql
+    state: enabled
+    permanent: true
+  become: true
