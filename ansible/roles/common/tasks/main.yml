@@ -14,4 +14,12 @@
       - ncdu
       - nmap
       - emacs
+      - tmux
+  become: true
+
+- name: Set default zone to 'public'
+  ansible.builtin.command: firewall-cmd --set-default-zone=work
+  register: common_default_zone_set
+  changed_when:
+    - '"ZONE_ALREADY_SET" not in common_default_zone_set.stderr'
   become: true
