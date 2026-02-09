@@ -7,6 +7,13 @@
   notify: Restart sshd
   become: true
 
+- name: Write tmux config file
+  ansible.builtin.template:
+    src: templates/.tmux.conf
+    dest: /home/simsine
+    mode: "0644"
+  become: false
+
 - name: Install common packages
   ansible.builtin.dnf:
     pkg:
@@ -15,9 +22,10 @@
       - nmap
       - emacs
       - tmux
+      - fastfetch
   become: true
 
-- name: Set default zone to 'public'
+- name: Set default firewall zone
   ansible.builtin.command: firewall-cmd --set-default-zone=work
   register: common_default_zone_set
   changed_when:
