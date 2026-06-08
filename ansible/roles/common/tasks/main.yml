@@ -17,12 +17,14 @@
 - name: Install common packages
   ansible.builtin.dnf:
     pkg:
+      - epel-release
       - htop
       - ncdu
       - nmap
       - emacs
       - tmux
       - fastfetch
+      - setools-console # For seinfo cli
   become: true
 
 - name: Set default firewall zone
