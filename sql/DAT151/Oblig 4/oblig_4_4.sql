@@ -1,0 +1,73 @@
+USE oblig_4;
+
+DROP TABLE IF EXISTS T1;
+DROP TABLE IF EXISTS T2;
+DROP TABLE IF EXISTS T3;
+
+DROP TRIGGER IF EXISTS tr12;
+DROP TRIGGER IF EXISTS tr23;
+DROP TRIGGER IF EXISTS tr13;
+
+CREATE TABLE T1 (
+    t1_id INT AUTO_INCREMENT,
+    t1_element TEXT NOT NULL,
+    PRIMARY KEY (t1_id)
+);
+
+CREATE TABLE T2 (
+    t2_id INT AUTO_INCREMENT,
+    t2_element TEXT NOT NULL,
+    PRIMARY KEY (t2_id)
+);
+
+CREATE TABLE T3 (
+    t3_id INT AUTO_INCREMENT,
+    t3_element TEXT NOT NULL,
+    PRIMARY KEY (t3_id)
+);
+
+DELIMITER //
+
+CREATE TRIGGER tr12
+BEFORE INSERT ON T1
+FOR EACH ROW
+BEGIN
+    INSERT INTO T2(
+        t2_element
+    )
+    VALUES (
+        NEW.t1_element
+    );
+END//
+
+CREATE TRIGGER tr23
+AFTER INSERT ON T2
+FOR EACH ROW
+BEGIN
+    INSERT INTO T3(
+        t3_element
+    )
+    VALUES (
+        NEW.t2_element
+    );
+END //
+
+CREATE TRIGGER tr13
+AFTER INSERT ON T1
+FOR EACH ROW
+BEGIN
+    INSERT INTO T3(
+        t3_element
+    )
+    VALUES (
+        NEW.t1_element
+    );
+END //
+
+DELIMITER ;
+
+INSERT INTO T1 (t1_element) VALUES ('TMNT');
+
+SELECT * FROM T1;
+SELECT * FROM T2;
+SELECT * FROM T3;

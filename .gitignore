@@ -1,5 +1,6 @@
-.venv
 .vscode
-.ansible
+.idea
 
+.venv
+.ansible
 .sudo_password
